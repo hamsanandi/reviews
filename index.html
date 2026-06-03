@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews — Hamsanandi</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #fdfbf7;
+            color: #1a1a1a;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Navigation Header */
+        header {
+            width: 100%;
+            border-bottom: 1px solid #e6dfd3;
+            background-color: #fffdfa;
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            max-width: 1000px;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #8c765c;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            color: #4a3b2c;
+            border-bottom: 1px solid #4a3b2c;
+        }
+
+        /* Language Switcher */
+        .lang-switch {
+            display: flex;
+            justify-content: flex-end;
+            max-width: 900px;
+            width: 90%;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .lang-btn {
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            color: #4a3b2c;
+        }
+
+        .lang-btn.active {
+            background-color: #4a3b2c;
+            color: #fffdfa;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 900px;
+            width: 90%;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        h1 {
+            font-family: "Georgia", serif;
+            font-weight: 300;
+            font-size: 2.5rem;
+            letter-spacing: 0.15em;
+            color: #4a3b2c;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-family: "Georgia", serif;
+            font-style: italic;
+            color: #8c765c;
+            font-size: 1.2rem;
+            margin-top: 0;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Intro Box */
+        .intro-box {
+            background-color: #fffdfa;
+            border: 1px solid #e6dfd3;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: left;
+            font-family: "Georgia", serif;
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: #2b2b2b;
+            margin-bottom: 4rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+        }
+
+        .section-heading {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #8c765c;
+            border-bottom: 1px solid #e6dfd3;
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* Grid Layout matching Stage Productions */
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (max-width: 500px) {
+            .media-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .grid-item {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        /* Video/Image Placeholder styling */
+        .media-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: #1a1a1a;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            margin-bottom: 1rem;
+        }
+
+        .media-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Article Link Card styling */
+        .article-card {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: #fffdfa;
+            border: 1px solid #e6dfd3;
+            border-radius: 6px;
+            box-sizing: border-box;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            margin-bottom: 1rem;
+            text-decoration: none;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-2px);
+            border-color: #8c765c;
+        }
+
+        .item-category {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: bold;
+            color: #8c765c;
+            margin-bottom: 0.3rem;
+        }
+
+        .item-title {
+            font-family: "Georgia", serif;
+            font-size: 1.25rem;
+            color: #4a3b2c;
+            margin: 0 0 0.5rem 0;
+            text-decoration: none;
+        }
+
+        .item-title a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .item-title a:hover {
+            color: #8c765c;
+        }
+
+        .item-description {
+            font-size: 0.9rem;
+            color: #555;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 2rem 0;
+            font-size: 0.8rem;
+            color: #8c765c;
+            border-top: 1px solid #e6dfd3;
+            margin-top: auto;
+            background-color: #fffdfa;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="/">Hamsanandi</a>
+            <a href="/compositions/">Compositions</a>
+            <a href="/articles/">Articles</a>
+            <a href="/books/">Books</a>
+            <a href="/poetry/">Metrical Poetry</a>
+            <a href="/stage-productions/">Stage Productions</a>
+            <a href="/gamaka/">Gamaka Vachana</a>
+            <a href="/translations/">Translations</a>
+            <a href="/reviews/" class="active">Reviews</a>
+        </nav>
+    </header>
+
+    <div class="lang-switch">
+        <a href="#" class="lang-btn active">EN</a>
+        <a href="#" class="lang-btn">ಕನ್ನಡ</a>
+    </div>
+
+    <main>
+        <h1>Reviews & Reports</h1>
+        <p class="subtitle">ಪುಸ್ತಕ ವಿಮರ್ಶೆಗಳು ಮತ್ತು ವರದಿಗಳು</p>
+
+        <div class="intro-box">
+            An archival compilation of media coverage, analytical reviews, and video reports detailing published literary collections, musical compositions, and theatrical designs.
+        </div>
+
+        <div class="section-heading">Recorded Reviews & Video Reports</div>
+        <div class="media-grid">
+            
+            <div class="grid-item">
+                <div class="media-container">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+                </div>
+                <div class="item-category">Video Review</div>
+                <h3 class="item-title">Muddurangana Chaupadigalu — Literary Discussion</h3>
+            </div>
+
+            <div class="grid-item">
+                <div class="media-container">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+                </div>
+                <div class="item-category">Media Report</div>
+                <h3 class="item-title">An Analysis of Contemporary Kannada Stagecraft</h3>
+            </div>
+
+        </div>
+
+        <div class="section-heading">Published Articles & Critical Essays</div>
+        <div class="media-grid">
+            
+            <div class="grid-item">
+                <a href="#" class="article-card">
+                    <div>
+                        <div class="item-category">Critical Review</div>
+                        <h3 class="item-title">The Metrics of Modern Chaupadi Poetry</h3>
+                        <p class="item-description">An analytical dive into classical structural frameworks adapted for modern audiences, exploring poetic depth and reader impact.</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="grid-item">
+                <a href="#" class="article-card">
+                    <div>
+                        <div class="item-category">Newspaper Report</div>
+                        <h3 class="item-title">Theatre Echoes from the Bay Area</h3>
+                        <p class="item-description">A retrospective report detailing the cultural significance, musical presentation, and community reception of modern Kannada plays.</p>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        Hosted on GitHub Pages
+    </footer>
+
+</body>
+</html>
