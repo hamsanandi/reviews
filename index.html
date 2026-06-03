@@ -1,318 +1,392 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="htmlRoot">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reviews — Hamsanandi</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #fdfbf7;
-            color: #1a1a1a;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reviews — Hamsanandi</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+Kannada:wght@400;600&family=Noto+Serif+Kannada:wght@400;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* Navigation Header */
-        header {
-            width: 100%;
-            border-bottom: 1px solid #e6dfd3;
-            background-color: #fffdfa;
-            display: flex;
-            justify-content: center;
-            padding: 1rem 0;
-        }
+:root {
+  --gold: #8b5e1a; --gold-light: #6b4510; --gold-dim: #a0783a;
+  --bg: #ffffff; --section-bg: #fdf9f3; --header-bg: #f5ede0;
+  --border: #d4c5a9; --border-light: #c0aa88;
+  --text: #1a1208; --meta: #8a7055;
+}
 
-        nav {
-            display: flex;
-            gap: 1.5rem;
-            max-width: 1000px;
-            width: 100%;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+body {
+  font-family: 'EB Garamond', serif;
+  background: var(--bg); color: var(--text);
+  max-width: 860px; margin: 0 auto;
+  padding: 0 0 60px; font-size: 16px; line-height: 1.6;
+}
 
-        nav a {
-            text-decoration: none;
-            color: #8c765c;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            padding: 0.5rem;
-            transition: color 0.2s;
-        }
+/* ── Top nav bar ── */
+.site-nav { background: var(--header-bg); border-bottom: 1px solid var(--border); padding: 0 20px; display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 42px; position: sticky; top: 0; z-index: 100; }
+.nav-home { font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.2em; color: var(--gold); text-decoration: none; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
+.nav-home.kn { font-family: 'Noto Serif Kannada', serif; letter-spacing: 0.05em; text-transform: none; font-size: 0.88rem; }
+.nav-home:hover { text-decoration: underline; }
+.nav-links { display: flex; align-items: center; gap: 0; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-link { font-family: 'EB Garamond', serif; font-size: 0.78rem; color: var(--meta); text-decoration: none; padding: 0 10px; line-height: 42px; white-space: nowrap; border-left: 1px solid var(--border); transition: color 0.15s, background 0.15s; }
+.nav-link:first-child { border-left: none; }
+.nav-link:hover { color: var(--gold); background: rgba(139,94,26,0.06); }
+.nav-link.active-section { color: var(--gold); font-weight: 600; }
+.nav-link.kn { font-family: 'Noto Sans Kannada', sans-serif; font-size: 0.72rem; }
 
-        nav a:hover, nav a.active {
-            color: #4a3b2c;
-            border-bottom: 1px solid #4a3b2c;
-        }
+/* ── Page header ── */
+.page-header {
+  text-align: center; padding: 36px 20px 24px;
+  border-bottom: 1px solid var(--border); position: relative;
+}
+.page-header::after {
+  content: ''; display: block; height: 2px; width: 160px; margin: 0 auto;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%);
+}
+.page-title {
+  font-family: 'Cinzel', serif; font-size: 1.5rem;
+  letter-spacing: 0.22em; color: var(--gold); text-transform: uppercase;
+}
+.page-title.kn {
+  font-family: 'Noto Serif Kannada', serif; letter-spacing: 0.05em; text-transform: none;
+}
+.page-subtitle { font-size: 0.95em; color: var(--gold-dim); margin-top: 6px; font-style: italic; }
+.page-subtitle.kn { font-family: 'Noto Sans Kannada', sans-serif; font-style: normal; }
 
-        /* Language Switcher */
-        .lang-switch {
-            display: flex;
-            justify-content: flex-end;
-            max-width: 900px;
-            width: 90%;
-            margin-top: 2rem;
-            gap: 1rem;
-        }
+/* ── Lang toggle ── */
+.lang-toggle {
+  position: absolute; top: 24px; right: 24px;
+  background: var(--header-bg); border: 1px solid var(--border-light);
+  border-radius: 20px; padding: 5px 4px; display: flex; gap: 3px;
+}
+.lang-btn { font-size: 0.75rem; padding: 4px 10px; border-radius: 16px; border: none; background: none; cursor: pointer; color: var(--meta); font-family: 'EB Garamond', serif; transition: all 0.18s; }
+.lang-btn.active { background: var(--gold); color: #fff; font-weight: 600; }
+.lang-btn.kn-btn { font-family: 'Noto Sans Kannada', sans-serif; font-size: 0.78rem; }
 
-        .lang-btn {
-            text-decoration: none;
-            font-size: 0.9rem;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            color: #4a3b2c;
-        }
+/* ── Intro text box ── */
+.intro-textbox {
+  max-width: 680px; margin: 20px auto 0; padding: 20px;
+  background: var(--section-bg); border: 1px solid var(--border-light);
+  border-radius: 6px; font-size: 1rem; line-height: 1.75;
+}
+.intro-textbox.kn { font-family: 'Noto Sans Kannada', sans-serif; font-size: 0.9rem; }
 
-        .lang-btn.active {
-            background-color: #4a3b2c;
-            color: #fffdfa;
-        }
+/* ── Section heading ── */
+.section-heading { font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--meta); text-align: center; margin: 40px 0 20px; }
+.section-heading.kn { font-family: 'Noto Sans Kannada', sans-serif; font-size: 0.92rem; letter-spacing: 0.05em; text-transform: none; }
 
-        /* Main Content */
-        main {
-            max-width: 900px;
-            width: 90%;
-            text-align: center;
-            margin-top: 1rem;
-        }
+/* ── Media grid ── */
+.media-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 0 20px; }
+.media-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; }
 
-        h1 {
-            font-family: "Georgia", serif;
-            font-weight: 300;
-            font-size: 2.5rem;
-            letter-spacing: 0.15em;
-            color: #4a3b2c;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
+/* Video container */
+.video-container { position: relative; width: 100%; padding-bottom: 56.25%; background: #000; border-radius: 0; overflow: hidden; }
+.video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+.video-placeholder { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.play-btn-overlay { width: 48px; height: 34px; background-color: rgba(26,18,8,0.75); border-radius: 8px; position: relative; transition: background-color 0.18s, transform 0.18s; }
+.video-placeholder:hover .play-btn-overlay { background-color: var(--gold); transform: scale(1.08); }
+.play-btn-overlay::after { content: ''; position: absolute; top: 10px; left: 20px; border-style: solid; border-width: 7px 0 7px 11px; border-color: transparent transparent transparent #ffffff; }
 
-        .subtitle {
-            font-family: "Georgia", serif;
-            font-style: italic;
-            color: #8c765c;
-            font-size: 1.2rem;
-            margin-top: 0;
-            margin-bottom: 2.5rem;
-        }
+.media-info { padding: 12px; flex-grow: 1; display: flex; flex-direction: column; }
+.media-label { font-size: 0.68em; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold-dim); font-family: 'Cinzel', serif; margin-bottom: 6px; display: block; }
+.media-label.kn { font-family: 'Noto Sans Kannada', sans-serif; font-size: 0.7rem; text-transform: none; letter-spacing: 0; }
 
-        /* Intro Box */
-        .intro-box {
-            background-color: #fffdfa;
-            border: 1px solid #e6dfd3;
-            border-radius: 8px;
-            padding: 2rem;
-            text-align: left;
-            font-family: "Georgia", serif;
-            font-size: 1.15rem;
-            line-height: 1.7;
-            color: #2b2b2b;
-            margin-bottom: 4rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
-        }
+.media-title { font-family: 'EB Garamond', serif; font-size: 0.95rem; font-weight: 600; color: var(--text); line-height: 1.4; }
+.media-title.kn { font-family: 'Noto Serif Kannada', serif; font-size: 0.88rem; }
 
-        .section-heading {
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 0.9rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: #8c765c;
-            border-bottom: 1px solid #e6dfd3;
-            padding-bottom: 0.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
+/* ── Article card (no video) ── */
+.article-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; padding: 0 20px; }
+.article-card {
+  display: flex; flex-direction: column;
+  background: var(--section-bg); border: 1px solid var(--border);
+  border-radius: 8px; padding: 18px; text-decoration: none; color: inherit;
+  transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+}
+.article-card:hover { transform: translateY(-2px); border-color: var(--gold); box-shadow: 0 4px 12px rgba(139,94,26,0.08); text-decoration: none; }
+.article-label { font-size: 0.68em; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold-dim); font-family: 'Cinzel', serif; margin-bottom: 8px; display: block; }
+.article-label.kn { font-family: 'Noto Sans Kannada', sans-serif; font-size: 0.7rem; text-transform: none; letter-spacing: 0; }
+.article-title { font-family: 'EB Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--text); line-height: 1.35; margin-bottom: 8px; }
+.article-title.kn { font-family: 'Noto Serif Kannada', serif; font-size: 1rem; }
+.article-desc { font-family: 'EB Garamond', serif; font-size: 0.92rem; color: var(--meta); line-height: 1.55; }
+.article-desc.kn { font-family: 'Noto Sans Kannada', sans-serif; font-size: 0.85rem; }
 
-        /* Grid Layout matching Stage Productions */
-        .media-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2.5rem;
-            margin-bottom: 4rem;
-        }
+/* ── Divider & footer ── */
+.section-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 48px 20px 0; }
+a { text-decoration: none; color: var(--gold-light); }
+a:hover { text-decoration: underline; }
+footer { text-align: center; color: var(--meta); margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.80em; padding-left: 20px; padding-right: 20px; }
+footer.kn { font-family: 'Noto Sans Kannada', sans-serif; }
 
-        @media (max-width: 500px) {
-            .media-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .grid-item {
-            display: flex;
-            flex-direction: column;
-            text-align: left;
-        }
-
-        /* Video/Image Placeholder styling */
-        .media-container {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background-color: #1a1a1a;
-            border-radius: 6px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            margin-bottom: 1rem;
-        }
-
-        .media-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Article Link Card styling */
-        .article-card {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background-color: #fffdfa;
-            border: 1px solid #e6dfd3;
-            border-radius: 6px;
-            box-sizing: border-box;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-            margin-bottom: 1rem;
-            text-decoration: none;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-
-        .article-card:hover {
-            transform: translateY(-2px);
-            border-color: #8c765c;
-        }
-
-        .item-category {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: bold;
-            color: #8c765c;
-            margin-bottom: 0.3rem;
-        }
-
-        .item-title {
-            font-family: "Georgia", serif;
-            font-size: 1.25rem;
-            color: #4a3b2c;
-            margin: 0 0 0.5rem 0;
-            text-decoration: none;
-        }
-
-        .item-title a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .item-title a:hover {
-            color: #8c765c;
-        }
-
-        .item-description {
-            font-size: 0.9rem;
-            color: #555;
-            margin: 0;
-            line-height: 1.5;
-        }
-
-        /* Footer */
-        footer {
-            width: 100%;
-            text-align: center;
-            padding: 2rem 0;
-            font-size: 0.8rem;
-            color: #8c765c;
-            border-top: 1px solid #e6dfd3;
-            margin-top: auto;
-            background-color: #fffdfa;
-        }
-    </style>
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .media-grid { grid-template-columns: repeat(2, 1fr); }
+  .article-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .media-grid { grid-template-columns: 1fr; gap: 16px; }
+  .site-nav { flex-wrap: wrap; padding: 8px 12px; min-height: unset; }
+  .nav-home { width: 100%; padding-bottom: 6px; line-height: 1.4; }
+  .nav-links { width: 100%; overflow-x: auto; }
+  .nav-link { font-size: 0.72rem; padding: 0 8px; line-height: 32px; }
+  .lang-toggle { position: static; margin: 12px auto 0; }
+  .page-header { padding: 24px 20px 20px; }
+}
+</style>
 </head>
 <body>
 
-    <header>
-        <nav>
-            <a href="/">Hamsanandi</a>
-            <a href="/compositions/">Compositions</a>
-            <a href="/articles/">Articles</a>
-            <a href="/books/">Books</a>
-            <a href="/poetry/">Metrical Poetry</a>
-            <a href="/stage-productions/">Stage Productions</a>
-            <a href="/gamaka/">Gamaka Vachana</a>
-            <a href="/translations/">Translations</a>
-            <a href="/reviews/" class="active">Reviews</a>
-        </nav>
-    </header>
+<!-- ── Sticky nav bar ── -->
+<nav class="site-nav" id="siteNav" aria-label="Site navigation">
+  <a class="nav-home" id="navHome" href="https://hamsanandi.github.io/">Hamsanandi</a>
+  <div class="nav-links" id="navLinks"></div>
+</nav>
 
-    <div class="lang-switch">
-        <a href="#" class="lang-btn active">EN</a>
-        <a href="#" class="lang-btn">ಕನ್ನಡ</a>
-    </div>
+<div class="page-header">
+  <div class="lang-toggle" id="langToggle">
+    <button class="lang-btn active" id="btnEN">EN</button>
+    <button class="lang-btn kn-btn" id="btnKN">ಕನ್ನಡ</button>
+  </div>
+  <div class="page-title" id="pageTitle">Reviews &amp; Reports</div>
+  <div class="page-subtitle" id="pageSubtitle">Media Coverage, Critical Essays &amp; Video Reports</div>
+</div>
 
-    <main>
-        <h1>Reviews & Reports</h1>
-        <p class="subtitle">ಪುಸ್ತಕ ವಿಮರ್ಶೆಗಳು ಮತ್ತು ವರದಿಗಳು</p>
+<div class="intro-textbox" id="introContent"></div>
 
-        <div class="intro-box">
-            An archival compilation of media coverage, analytical reviews, and video reports detailing published literary collections, musical compositions, and theatrical designs.
+<div class="section-heading" id="videoHeading">Recorded Reviews &amp; Video Reports</div>
+<div class="media-grid" id="mediaGrid"></div>
+
+<div class="section-heading" id="articleHeading">Published Articles &amp; Critical Essays</div>
+<div class="article-grid" id="articleGrid"></div>
+
+<hr class="section-divider">
+<footer id="footerEl">Hosted on GitHub Pages</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   BILINGUAL UI STRINGS
+   ═══════════════════════════════════════════════════════════════ */
+const STR = {
+  en: {
+    navHome: "Hamsanandi", navHomeClass: "nav-home",
+    pageTitle: "Reviews & Reports", pageTitleClass: "page-title",
+    pageSubtitle: "Media Coverage, Critical Essays & Video Reports",
+    pageSubtitleClass: "page-subtitle",
+    introText: "An archival compilation of media coverage, analytical reviews, and video reports detailing published literary collections, musical compositions, and theatrical designs.",
+    introClass: "intro-textbox",
+    videoHeading: "Recorded Reviews & Video Reports",
+    articleHeading: "Published Articles & Critical Essays",
+    headingClass: "section-heading",
+    lblVideoReview: "Video Review",
+    lblMediaReport: "Media Report",
+    lblCriticalReview: "Critical Review",
+    lblNewspaperReport: "Newspaper Report",
+    footer: "Hosted on GitHub Pages", footerClass: ""
+  },
+  kn: {
+    navHome: "ಹಂಸಾನಂದಿ", navHomeClass: "nav-home kn",
+    pageTitle: "ವಿಮರ್ಶೆಗಳು ಮತ್ತು ವರದಿಗಳು", pageTitleClass: "page-title kn",
+    pageSubtitle: "ಮಾಧ್ಯಮ ವರದಿಗಳು, ವಿಮರ್ಶಾ ಲೇಖನಗಳು ಮತ್ತು ದೃಶ್ಯ ವರದಿಗಳು",
+    pageSubtitleClass: "page-subtitle kn",
+    introText: "ಪ್ರಕಟಿತ ಸಾಹಿತ್ಯ ಸಂಗ್ರಹಗಳು, ಸಂಗೀತ ರಚನೆಗಳು ಮತ್ತು ರಂಗ ಪ್ರದರ್ಶನಗಳ ಕುರಿತ ಮಾಧ್ಯಮ ವರದಿಗಳು, ವಿಶ್ಲೇಷಣಾತ್ಮಕ ವಿಮರ್ಶೆಗಳು ಮತ್ತು ದೃಶ್ಯ ವರದಿಗಳ ಆರ್ಕೈವ್ ಸಂಗ್ರಹ.",
+    introClass: "intro-textbox kn",
+    videoHeading: "ದೃಶ್ಯ ವಿಮರ್ಶೆಗಳು ಮತ್ತು ವರದಿಗಳು",
+    articleHeading: "ಪ್ರಕಟಿತ ಲೇಖನಗಳು ಮತ್ತು ವಿಮರ್ಶಾ ಪ್ರಬಂಧಗಳು",
+    headingClass: "section-heading kn",
+    lblVideoReview: "ದೃಶ್ಯ ವಿಮರ್ಶೆ",
+    lblMediaReport: "ಮಾಧ್ಯಮ ವರದಿ",
+    lblCriticalReview: "ವಿಮರ್ಶಾ ಲೇಖನ",
+    lblNewspaperReport: "ಪತ್ರಿಕಾ ವರದಿ",
+    footer: "GitHub Pages ನಲ್ಲಿ ಪ್ರಕಾಶಿತ", footerClass: "kn"
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════════
+   VIDEO REVIEWS DATA
+   ─────────────────────────────────────────────────────────────
+   type:  "videoReview" | "mediaReport"   — controls the label
+   id:    YouTube video ID
+   start: optional start time in seconds
+
+   TO ADD A NEW VIDEO:
+   { type:"videoReview", id:"YouTubeID", start:0,
+     en:{ title:"English Title" },
+     kn:{ title:"ಕನ್ನಡ ಶೀರ್ಷಿಕೆ" } },
+   ═══════════════════════════════════════════════════════════════ */
+const VIDEO_REVIEWS = [
+
+  { type:"videoReview", id:"VIDEO_ID", start:0,
+    en:{ title:"Muddurangana Chaupadigalu — Literary Discussion" },
+    kn:{ title:"ಮುದ್ದುರಂಗನ ಚೌಪದಿಗಳು — ಸಾಹಿತ್ಯ ಚರ್ಚೆ" } },
+
+  { type:"mediaReport", id:"VIDEO_ID", start:0,
+    en:{ title:"An Analysis of Contemporary Kannada Stagecraft" },
+    kn:{ title:"ಸಮಕಾಲೀನ ಕನ್ನಡ ರಂಗಭೂಮಿಯ ಒಂದು ವಿಶ್ಲೇಷಣೆ" } }
+
+  /* ── ADD NEW VIDEO REVIEWS ABOVE THIS LINE ─────────────────
+     Remember: add a comma after the } of the previous entry.
+     ────────────────────────────────────────────────────────── */
+
+]; /* end VIDEO_REVIEWS */
+
+/* ═══════════════════════════════════════════════════════════════
+   PUBLISHED ARTICLES DATA
+   ─────────────────────────────────────────────────────────────
+   type: "criticalReview" | "newspaperReport"
+   url:  link to the article (use "#" if not yet published online)
+   ═══════════════════════════════════════════════════════════════ */
+const ARTICLES = [
+
+  { type:"criticalReview", url:"#",
+    en:{ title:"The Metrics of Modern Chaupadi Poetry",
+         desc:"An analytical dive into classical structural frameworks adapted for modern audiences, exploring poetic depth and reader impact." },
+    kn:{ title:"ಆಧುನಿಕ ಚೌಪದಿ ಕಾವ್ಯದ ಛಂದಶ್ಶಾಸ್ತ್ರ",
+         desc:"ಸಮಕಾಲೀನ ಓದುಗರಿಗಾಗಿ ಅಳವಡಿಸಿಕೊಂಡ ಶಾಸ್ತ್ರೀಯ ರಚನಾತ್ಮಕ ಚೌಕಟ್ಟುಗಳ ವಿಶ್ಲೇಷಣಾತ್ಮಕ ಅಧ್ಯಯನ — ಕಾವ್ಯದ ಆಳ ಮತ್ತು ಓದುಗ ಪ್ರಭಾವದ ಪರಿಶೋಧನೆ." } },
+
+  { type:"newspaperReport", url:"#",
+    en:{ title:"Theatre Echoes from the Bay Area",
+         desc:"A retrospective report detailing the cultural significance, musical presentation, and community reception of modern Kannada plays." },
+    kn:{ title:"ಬೇ ಏರಿಯಾದಿಂದ ರಂಗಧ್ವನಿಗಳು",
+         desc:"ಆಧುನಿಕ ಕನ್ನಡ ನಾಟಕಗಳ ಸಾಂಸ್ಕೃತಿಕ ಮಹತ್ವ, ಸಂಗೀತ ಪ್ರಸ್ತುತಿ ಮತ್ತು ಸಮುದಾಯದ ಸ್ವೀಕಾರವನ್ನು ವಿವರಿಸುವ ಒಂದು ಪೂರ್ವಾವಲೋಕನ ವರದಿ." } }
+
+  /* ── ADD NEW ARTICLES ABOVE THIS LINE ──────────────────────
+     Remember: add a comma after the } of the previous entry.
+     ────────────────────────────────────────────────────────── */
+
+]; /* end ARTICLES */
+
+/* ═══════════════════════════════════════════════════════════════
+   NAV SECTIONS
+   ═══════════════════════════════════════════════════════════════ */
+const NAV_SECTIONS = [
+  { en:"Compositions",      kn:"ರಚನೆಗಳು",        url:"https://hamsanandi.github.io/compositions/" },
+  { en:"Articles",          kn:"ಲೇಖನಗಳು",         url:"https://hamsanandi.github.io/articles/" },
+  { en:"Books",             kn:"ಪುಸ್ತಕಗಳು",       url:"https://hamsanandi.github.io/books/" },
+  { en:"Metrical Poetry",   kn:"ಛಂದೋಬದ್ಧ ಕಾವ್ಯ",  url:"https://hamsanandi.github.io/poetry/" },
+  { en:"Stage Productions", kn:"ರಂಗಪ್ರಯೋಗಗಳು",   url:"https://hamsanandi.github.io/stage-productions/" },
+  { en:"Gamaka Vachana",    kn:"ಗಮಕ ವಾಚನ",        url:"https://hamsanandi.github.io/gamaka/" },
+  { en:"Translations",      kn:"ಅನುವಾದಗಳು",       url:"https://hamsanandi.github.io/translations/" },
+  { en:"Reviews",           kn:"ವಿಮರ್ಶೆಗಳು",      url:"https://hamsanandi.github.io/reviews/", current:true }
+];
+
+/* ═══════════════════════════════════════════════════════════════
+   RENDER
+   ═══════════════════════════════════════════════════════════════ */
+let lang = 'en';
+
+function renderNav(l) {
+  const s = STR[l];
+  const navHome = document.getElementById('navHome');
+  navHome.textContent = s.navHome;
+  navHome.className   = s.navHomeClass;
+  const navLinks = document.getElementById('navLinks');
+  navLinks.innerHTML  = '';
+  NAV_SECTIONS.forEach(sec => {
+    const a = document.createElement('a');
+    a.href        = sec.url;
+    a.textContent = sec[l];
+    a.className   = 'nav-link' + (l === 'kn' ? ' kn' : '') + (sec.current ? ' active-section' : '');
+    navLinks.appendChild(a);
+  });
+}
+
+function labelFor(type, s) {
+  switch (type) {
+    case 'videoReview':     return s.lblVideoReview;
+    case 'mediaReport':     return s.lblMediaReport;
+    case 'criticalReview':  return s.lblCriticalReview;
+    case 'newspaperReport': return s.lblNewspaperReport;
+    default: return '';
+  }
+}
+
+function renderVideoGrid(l) {
+  const s    = STR[l];
+  const grid = document.getElementById('mediaGrid');
+  grid.innerHTML = '';
+  VIDEO_REVIEWS.forEach((p, i) => {
+    const label      = labelFor(p.type, s);
+    const labelClass = 'media-label' + (l === 'kn' ? ' kn' : '');
+    const titleClass = 'media-title' + (l === 'kn' ? ' kn' : '');
+    const isPlaceholder = !p.id || p.id === 'VIDEO_ID';
+    const src = 'https://www.youtube.com/embed/' + p.id + (p.start ? '?start=' + p.start : '');
+    const bg  = isPlaceholder
+      ? 'background: linear-gradient(135deg, #2a1f10 0%, #4a3520 100%);'
+      : `background-image:url('https://img.youtube.com/vi/${p.id}/maxresdefault.jpg'); background-size: cover; background-position: center;`;
+    const click = isPlaceholder ? '' : `onclick="loadPlayer('${p.id}-${i}','${src}')"`;
+    const card = document.createElement('div');
+    card.className = 'media-card';
+    card.innerHTML = `
+      <div class="video-container" id="wrap-${p.id}-${i}">
+        <div class="video-placeholder" style="${bg}" ${click}>
+          <div class="play-btn-overlay"></div>
         </div>
+      </div>
+      <div class="media-info">
+        <span class="${labelClass}">${label}</span>
+        <div class="${titleClass}">${p[l].title}</div>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
 
-        <div class="section-heading">Recorded Reviews & Video Reports</div>
-        <div class="media-grid">
-            
-            <div class="grid-item">
-                <div class="media-container">
-                    <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
-                </div>
-                <div class="item-category">Video Review</div>
-                <h3 class="item-title">Muddurangana Chaupadigalu — Literary Discussion</h3>
-            </div>
+function renderArticleGrid(l) {
+  const s    = STR[l];
+  const grid = document.getElementById('articleGrid');
+  grid.innerHTML = '';
+  ARTICLES.forEach(p => {
+    const label      = labelFor(p.type, s);
+    const labelClass = 'article-label' + (l === 'kn' ? ' kn' : '');
+    const titleClass = 'article-title' + (l === 'kn' ? ' kn' : '');
+    const descClass  = 'article-desc'  + (l === 'kn' ? ' kn' : '');
+    const a = document.createElement('a');
+    a.href      = p.url;
+    a.className = 'article-card';
+    a.innerHTML = `
+      <span class="${labelClass}">${label}</span>
+      <div class="${titleClass}">${p[l].title}</div>
+      <div class="${descClass}">${p[l].desc}</div>`;
+    grid.appendChild(a);
+  });
+}
 
-            <div class="grid-item">
-                <div class="media-container">
-                    <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
-                </div>
-                <div class="item-category">Media Report</div>
-                <h3 class="item-title">An Analysis of Contemporary Kannada Stagecraft</h3>
-            </div>
+function loadPlayer(wrapId, src) {
+  const w = document.getElementById('wrap-' + wrapId);
+  w.innerHTML = `<iframe src="${src}${src.includes('?') ? '&' : '?'}autoplay=1" allow="autoplay" allowfullscreen></iframe>`;
+}
 
-        </div>
+function applyLang(l) {
+  lang = l;
+  const s = STR[l];
+  document.getElementById('htmlRoot').lang              = l === 'kn' ? 'kn' : 'en';
+  document.getElementById('pageTitle').textContent      = s.pageTitle;
+  document.getElementById('pageTitle').className        = s.pageTitleClass;
+  document.getElementById('pageSubtitle').textContent   = s.pageSubtitle;
+  document.getElementById('pageSubtitle').className     = s.pageSubtitleClass;
+  document.getElementById('introContent').textContent   = s.introText;
+  document.getElementById('introContent').className     = s.introClass;
+  document.getElementById('videoHeading').textContent   = s.videoHeading;
+  document.getElementById('videoHeading').className     = s.headingClass;
+  document.getElementById('articleHeading').textContent = s.articleHeading;
+  document.getElementById('articleHeading').className   = s.headingClass;
+  document.getElementById('footerEl').textContent       = s.footer;
+  document.getElementById('footerEl').className         = 'footer ' + (s.footerClass || '');
+  document.getElementById('btnEN').classList.toggle('active', l === 'en');
+  document.getElementById('btnKN').classList.toggle('active', l === 'kn');
+  renderNav(l);
+  renderVideoGrid(l);
+  renderArticleGrid(l);
+}
 
-        <div class="section-heading">Published Articles & Critical Essays</div>
-        <div class="media-grid">
-            
-            <div class="grid-item">
-                <a href="#" class="article-card">
-                    <div>
-                        <div class="item-category">Critical Review</div>
-                        <h3 class="item-title">The Metrics of Modern Chaupadi Poetry</h3>
-                        <p class="item-description">An analytical dive into classical structural frameworks adapted for modern audiences, exploring poetic depth and reader impact.</p>
-                    </div>
-                </a>
-            </div>
+document.getElementById('langToggle').addEventListener('click', e => {
+  const btn = e.target.closest('.lang-btn');
+  if (!btn) return;
+  lang = btn.id === 'btnKN' ? 'kn' : 'en';
+  applyLang(lang);
+});
 
-            <div class="grid-item">
-                <a href="#" class="article-card">
-                    <div>
-                        <div class="item-category">Newspaper Report</div>
-                        <h3 class="item-title">Theatre Echoes from the Bay Area</h3>
-                        <p class="item-description">A retrospective report detailing the cultural significance, musical presentation, and community reception of modern Kannada plays.</p>
-                    </div>
-                </a>
-            </div>
-
-        </div>
-    </main>
-
-    <footer>
-        Hosted on GitHub Pages
-    </footer>
-
+applyLang('en');
+</script>
 </body>
 </html>
