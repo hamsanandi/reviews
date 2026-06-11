@@ -136,10 +136,15 @@ footer.kn { font-family: 'Noto Sans Kannada', sans-serif; }
   <div class="page-subtitle" id="pageSubtitle">Media Coverage, Critical Essays &amp; Video Reports</div>
 </div>
 <div class="intro-textbox" id="introContent"></div>
-<div class="section-heading" id="videoHeading">Recorded Reviews &amp; Video Reports</div>
-<div class="media-grid" id="mediaGrid"></div>
+
+<!-- Articles first -->
 <div class="section-heading" id="articleHeading">Published Articles &amp; Critical Essays</div>
 <div class="article-grid" id="articleGrid"></div>
+
+<!-- Videos after -->
+<div class="section-heading" id="videoHeading">Recorded Reviews &amp; Video Reports</div>
+<div class="media-grid" id="mediaGrid"></div>
+
 <hr class="section-divider">
 <footer id="footerEl">Hosted on GitHub Pages</footer>
 <script>
@@ -187,30 +192,10 @@ const STR = {
 
 /* ═══════════════════════════════════════════════════════════════
    VIDEO REVIEWS DATA
-   ─────────────────────────────────────────────────────────────
-   Each entry requires:
-     type  : "bookReport" | "bookDiscussion" | "videoReview" | "mediaReport"
-     id    : YouTube video ID (the part after ?v=)
-     start : start time in seconds (use 0 if none)
-     en    : { title: "English title" }
-     kn    : { title: "ಕನ್ನಡ ಶೀರ್ಷಿಕೆ" }
-
-   HOW TO ADD A NEW VIDEO:
-   ───────────────────────
-   1. Find the entry block for the right category below.
-   2. Copy a nearby entry, paste it above the closing comment of
-      that block, and update id / title fields.
-   3. Always put a comma after the closing } of the previous entry.
-
-   ENTRY TEMPLATE:
-   { type:"bookReport", id:"YouTubeID", start:0,
-     en:{ title:"English Title" },
-     kn:{ title:"ಕನ್ನಡ ಶೀರ್ಷಿಕೆ" } },
    ═══════════════════════════════════════════════════════════════ */
 const VIDEO_REVIEWS = [
 
   /* ── BOOK REPORTS (ಪುಸ್ತಕ ಪರಿಚಯ) ──────────────────────────────
-     type: "bookReport"
      ADD NEW BOOK REPORTS ABOVE THE CLOSING COMMENT OF THIS BLOCK
      ──────────────────────────────────────────────────────────── */
   { type:"bookReport", id:"9SL4qGK6u1A", start:0,
@@ -252,7 +237,6 @@ const VIDEO_REVIEWS = [
   /* ── END BOOK REPORTS ──────────────────────────────────────── */
 
   /* ── BOOK DISCUSSIONS (ಪುಸ್ತಕ ಚರ್ಚೆ) ──────────────────────────
-     type: "bookDiscussion"
      ADD NEW BOOK DISCUSSIONS ABOVE THE CLOSING COMMENT OF THIS BLOCK
      ──────────────────────────────────────────────────────────── */
   { type:"bookDiscussion", id:"-5GfSNGGkvs", start:0,
@@ -270,13 +254,11 @@ const VIDEO_REVIEWS = [
   /* ── END BOOK DISCUSSIONS ──────────────────────────────────── */
 
   /* ── VIDEO REVIEWS (ದೃಶ್ಯ ವಿಮರ್ಶೆ) ─────────────────────────────
-     type: "videoReview"
      ADD NEW VIDEO REVIEWS ABOVE THE CLOSING COMMENT OF THIS BLOCK
      ──────────────────────────────────────────────────────────── */
   /* ── END VIDEO REVIEWS ─────────────────────────────────────── */
 
   /* ── MEDIA REPORTS (ಮಾಧ್ಯಮ ವರದಿ) ────────────────────────────────
-     type: "mediaReport"
      ADD NEW MEDIA REPORTS ABOVE THE CLOSING COMMENT OF THIS BLOCK
      ──────────────────────────────────────────────────────────── */
   /* ── END MEDIA REPORTS ─────────────────────────────────────── */
@@ -285,33 +267,17 @@ const VIDEO_REVIEWS = [
 
 /* ═══════════════════════════════════════════════════════════════
    PUBLISHED ARTICLES DATA
-   ─────────────────────────────────────────────────────────────
-   Each entry requires:
-     type : "criticalReview" | "newspaperReport"
-     url  : full URL to the article (use "#" if not yet online)
-     en   : { title: "English title", desc: "Short description." }
-     kn   : { title: "ಕನ್ನಡ ಶೀರ್ಷಿಕೆ", desc: "ಸಂಕ್ಷಿಪ್ತ ವಿವರಣೆ." }
-
-   HOW TO ADD A NEW ARTICLE:
-   ─────────────────────────
-   1. Find the entry block for the right category below.
-   2. Copy a nearby entry, paste it above the closing comment of
-      that block, and update url / title / desc fields.
-   3. Always put a comma after the closing } of the previous entry.
-
-   ENTRY TEMPLATE:
-   { type:"criticalReview", url:"https://...",
-     en:{ title:"English Title",
-          desc:"One or two sentence description." },
-     kn:{ title:"ಕನ್ನಡ ಶೀರ್ಷಿಕೆ",
-          desc:"ಒಂದೆರಡು ವಾಕ್ಯಗಳ ವಿವರಣೆ." } },
    ═══════════════════════════════════════════════════════════════ */
 const ARTICLES = [
 
   /* ── CRITICAL REVIEWS (ವಿಮರ್ಶಾ ಲೇಖನ) ───────────────────────────
-     type: "criticalReview"
      ADD NEW CRITICAL REVIEWS ABOVE THE CLOSING COMMENT OF THIS BLOCK
      ──────────────────────────────────────────────────────────── */
+  { type:"criticalReview", url:"mannina-kanasu-pustaka-parichaya.html",
+    en:{ title:"Mannina Kanasu — A Book Review",
+         desc:"A review of the historical novel by Shatavadhani Dr. R. Ganesh, set 2,500 years ago in ancient India — drawing on Bhasa's plays and Shudraka's Mrichchhakatika to bring the age of Buddha and Mahavira to life." },
+    kn:{ title:"ಮಣ್ಣಿನ ಕನಸು — ಪುಸ್ತಕ ಪರಿಚಯ",
+         desc:"ಶತಾವಧಾನಿ ಡಾ. ಆರ್. ಗಣೇಶ್ ಅವರ ಐತಿಹಾಸಿಕ ಕಾದಂಬರಿಯ ಪರಿಚಯ — ಸುಮಾರು ೨೫೦೦ ವರ್ಷಗಳ ಹಿಂದಿನ ಬುದ್ಧ-ಮಹಾವೀರರ ಕಾಲದ ಉತ್ತರ ಭಾರತವನ್ನು ಭಾಸನ ನಾಟಕಗಳು ಮತ್ತು ಶೂದ್ರಕನ ಮೃಚ್ಛಕಟಿಕದ ಆಧಾರದ ಮೇಲೆ ಕಟ್ಟಿಕೊಟ್ಟಿರುವ ಕೃತಿ." } },
   { type:"criticalReview", url:"https://www.indica.today/reviews/hls-review-english/",
     en:{ title:"How to Love in Sanskrit — A Book Review",
          desc:"A review of the HarperCollins anthology by Anusha Rao and Suhas Mahesh — 218 love poems translated from Sanskrit, Prakrit, Pali, and Apabhramsha into contemporary English." },
@@ -320,7 +286,6 @@ const ARTICLES = [
   /* ── END CRITICAL REVIEWS ──────────────────────────────────── */
 
   /* ── NEWSPAPER REPORTS (ಪತ್ರಿಕಾ ವರದಿ) ───────────────────────────
-     type: "newspaperReport"
      ADD NEW NEWSPAPER REPORTS ABOVE THE CLOSING COMMENT OF THIS BLOCK
      ──────────────────────────────────────────────────────────── */
   /* ── END NEWSPAPER REPORTS ─────────────────────────────────── */
@@ -433,17 +398,17 @@ function applyLang(l) {
   document.getElementById('pageSubtitle').className     = s.pageSubtitleClass;
   document.getElementById('introContent').textContent   = s.introText;
   document.getElementById('introContent').className     = s.introClass;
-  document.getElementById('videoHeading').textContent   = s.videoHeading;
-  document.getElementById('videoHeading').className     = s.headingClass;
   document.getElementById('articleHeading').textContent = s.articleHeading;
   document.getElementById('articleHeading').className   = s.headingClass;
+  document.getElementById('videoHeading').textContent   = s.videoHeading;
+  document.getElementById('videoHeading').className     = s.headingClass;
   document.getElementById('footerEl').textContent       = s.footer;
   document.getElementById('footerEl').className         = 'footer ' + (s.footerClass || '');
   document.getElementById('btnEN').classList.toggle('active', l === 'en');
   document.getElementById('btnKN').classList.toggle('active', l === 'kn');
   renderNav(l);
-  renderVideoGrid(l);
   renderArticleGrid(l);
+  renderVideoGrid(l);
 }
 document.getElementById('langToggle').addEventListener('click', e => {
   const btn = e.target.closest('.lang-btn');
